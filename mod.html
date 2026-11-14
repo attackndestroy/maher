@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تحميل المود - موقع مودات ماهر</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f4f6f9;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* الهيدر الجذاب */
+    header {
+      background: linear-gradient(135deg, #0045a5 0%, #0070f3 100%);
+      color: #ffffff;
+      padding: 18px 24px;
+      box-shadow: 0 4px 12px rgba(0, 112, 243, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+    }
+
+    .logo-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* حاوية التحميل الرئيسية */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 25px 15px;
+    }
+
+    .download-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 580px;
+      border-radius: 8px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e1e5eb;
+      overflow: hidden;
+    }
+
+    /* شريط حالة الأمان العلوي مثل ميديا فاير */
+    .status-bar {
+      background-color: #eef5ff;
+      color: #0056b3;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-bottom: 1px solid #d6e6ff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-body {
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* معلومات الملف */
+    .file-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #f9fafc;
+      padding: 16px;
+      border-radius: 6px;
+      border: 1px solid #eaedf2;
+    }
+
+    .file-icon {
+      width: 52px;
+      height: 52px;
+      min-width: 52px;
+      background: #ffaa00;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.9rem;
+      box-shadow: 0 3px 8px rgba(255, 170, 0, 0.3);
+    }
+
+    .file-details {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .file-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1a1f36;
+      word-break: break-word;
+      direction: ltr;
+      text-align: right;
+    }
+
+    .file-meta {
+      font-size: 0.82rem;
+      color: #697386;
+      margin-top: 4px;
+    }
+
+    /* زر التحميل الأزرق على غرار MediaFire */
+    .download-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background-color: #0070f3;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-weight: 800;
+      padding: 16px 24px;
+      border-radius: 6px;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      box-shadow: 0 4px 14px rgba(0, 112, 243, 0.35);
+      cursor: pointer;
+    }
+
+    .download-btn:hover {
+      background-color: #005bb5;
+    }
+
+    .download-btn:active {
+      transform: scale(0.99);
+    }
+
+    .download-btn.disabled {
+      background-color: #9aa5b1;
+      box-shadow: none;
+      pointer-events: none;
+    }
+
+    /* ملاحظة سفلية */
+    .note {
+      text-align: center;
+      font-size: 0.82rem;
+      color: #7b8794;
+      border-top: 1px solid #f0f2f5;
+      padding-top: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 0.85rem;
+      color: #697386;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- الهيدر -->
+  <header>
+    <a href="#" class="logo-container">
+      <div class="logo-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+      </div>
+      <span class="logo-title">موقع مودات ماهر</span>
+    </a>
+  </header>
+
+  <!-- محتوى الصفحة -->
+  <main>
+    <div class="download-card">
+      <div class="status-bar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <span id="status-text">جاري التحقق من رابط الملف...</span>
+      </div>
+
+      <div class="card-body">
+        <div class="file-info">
+          <div class="file-icon">MOD</div>
+          <div class="file-details">
+            <div class="file-name" id="mod-name">جاري التحميل...</div>
+            <div class="file-meta" id="mod-meta">رابط مباشر سريع • تم الفحص وخالٍ من الفيروسات</div>
+          </div>
+        </div>
+
+        <a href="#" id="download-link" class="download-btn disabled">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>تحميل الآن (DOWNLOAD)</span>
+        </a>
+
+        <div class="note">
+          إذا لم يبدأ التحميل تلقائيًا، اضغط مطولاً على زر التحميل واختر "فتح في علامة تبويب جديدة".
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    جميع الحقوق محفوظة &copy; موقع مودات ماهر
+  </footer>
+
+  <!-- كود جلب البيانات من mod.json -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const modId = urlParams.get('id');
+
+      const nameEl = document.getElementById('mod-name');
+      const linkEl = document.getElementById('download-link');
+      const statusEl = document.getElementById('status-text');
+      const metaEl = document.getElementById('mod-meta');
+
+      if (!modId) {
+        nameEl.textContent = "لم يتم تحديد رقم المود في الرابط!";
+        statusEl.textContent = "خطأ في الرابط (مثال صحيح: mod.html?id=1)";
+        metaEl.textContent = "يرجى التأكد من الرابط والمحاولة مرة أخرى.";
+        return;
+      }
+
+      fetch('mod.json')
+        .then(response => {
+          if (!response.ok) throw new Error("تعذر قراءة ملف mod.json");
+          return response.json();
+        })
+        .then(mods => {
+          // البحث عن المود المطابق لـ id
+          const mod = mods.find(item => String(item.id) === String(modId));
+
+          if (mod) {
+            nameEl.textContent = mod.name;
+            document.title = `تحميل ${mod.name} - موقع مودات ماهر`;
+            linkEl.href = mod.link;
+            linkEl.classList.remove('disabled');
+            statusEl.textContent = "الملف جاهز للتحميل المباشر";
+          } else {
+            nameEl.textContent = "عذراً، هذا المود غير موجود!";
+            statusEl.textContent = "خطأ 404 - الملف غير متوفر";
+            metaEl.textContent = "ربما تم حذف المود أو تغيير رقمه.";
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          nameEl.textContent = "حدث خطأ أثناء تحميل بيانات المود";
+          statusEl.textContent = "تأكد من تشغيل الصفحة عبر سيرفر محلي أو استضافة (مثل GitHub Pages)";
+        });
+    });
+  </script>
+
+</body>
+</html>
