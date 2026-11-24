@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة النشر - موقع مودات ماهر</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .dashboard-card {
+      background-color: #1c1c1e;
+      border: 1px solid #2e2e32;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 480px;
+      padding: 28px 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #2e2e32;
+    }
+
+    .header h1 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #55ff55;
+    }
+
+    .header p {
+      font-size: 0.85rem;
+      color: #9aa0a6;
+      margin-top: 4px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #e0e0e0;
+      direction: ltr;
+      text-align: left;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      background-color: #121212;
+      border: 1px solid #3a3a40;
+      border-radius: 6px;
+      color: #ffffff;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.95rem;
+      direction: ltr;
+      text-align: left;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #55ff55;
+    }
+
+    button {
+      font-family: 'Cairo', sans-serif;
+      cursor: pointer;
+    }
+
+    .btn-post {
+      width: 100%;
+      padding: 13px;
+      background-color: #55ff55;
+      color: #121212;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      transition: background-color 0.2s, transform 0.1s;
+      margin-top: 6px;
+    }
+
+    .btn-post:hover {
+      background-color: #42e042;
+    }
+
+    .btn-post:active {
+      transform: scale(0.98);
+    }
+
+    .btn-post:disabled {
+      background-color: #3a3a40;
+      color: #888;
+      cursor: not-allowed;
+    }
+
+    .result-box {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid #2e2e32;
+      display: none;
+    }
+
+    .result-box.active {
+      display: block;
+    }
+
+    .generated-url {
+      width: 100%;
+      padding: 10px 12px;
+      background-color: #121212;
+      border: 1px solid #55ff55;
+      border-radius: 6px;
+      color: #55ff55;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    .btn-copy {
+      width: 100%;
+      padding: 11px;
+      background-color: #0070f3;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: background-color 0.2s;
+    }
+
+    .btn-copy:hover {
+      background-color: #005bb5;
+    }
+
+    .status-msg {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .status-msg.error {
+      color: #ff5555;
+    }
+
+    .status-msg.success {
+      color: #55ff55;
+    }
+
+    .btn-settings {
+      width: 100%;
+      margin-top: 18px;
+      padding: 9px;
+      background: transparent;
+      color: #888;
+      border: 1px solid #3a3a40;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    .btn-settings:hover {
+      color: #55ff55;
+      border-color: #55ff55;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="dashboard-card">
+
+    <div class="header">
+      <h1>موقع ماهر المودات</h1>
+      <p>نشر مباشر وتحديث تلقائي لملف mod.json</p>
+    </div>
+
+    <div class="form-group">
+      <label for="filename">filename:</label>
+      <input
+        type="text"
+        id="filename"
+        placeholder="Mod_Cars_Pack_v1.zip"
+        autocomplete="off"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="link">link:</label>
+      <input
+        type="url"
+        id="link"
+        placeholder="https://..."
+        autocomplete="off"
+      >
+    </div>
+
+    <button id="postBtn" class="btn-post">POST</button>
+
+    <div id="statusMsg" class="status-msg"></div>
+
+    <div id="resultBox" class="result-box">
+
+      <input
+        type="text"
+        id="generatedLink"
+        class="generated-url"
+        readonly
+      >
+
+      <button id="copyBtn" class="btn-copy">
+        COPY LINK
+      </button>
+
+    </div>
+
+    <button id="settingsBtn" class="btn-settings">
+      تغيير GitHub API Token
+    </button>
+
+  </div>
+
+  <script>
+
+    // ==========================================
+    // إعدادات المستودع
+    // ==========================================
+
+    const GITHUB_CONFIG = {
+      user: "attackndestroy",
+      repo: "maher",
+      filePath: "mod.json",
+      domain: "https://m2026.attdes.online"
+    };
+
+    // ==========================================
+    // تخزين واسترجاع API TOKEN
+    // ==========================================
+
+    const TOKEN_KEY = "maher_github_api_token";
+
+    let githubToken = localStorage.getItem(TOKEN_KEY) || "";
+
+    function requestToken() {
+
+      const enteredToken = prompt(
+        "أدخل GitHub API Token الخاص بك:"
+      );
+
+      if (enteredToken && enteredToken.trim()) {
+
+        githubToken = enteredToken.trim();
+
+        localStorage.setItem(
+          TOKEN_KEY,
+          githubToken
+        );
+
+        return true;
+
+      }
+
+      return false;
+    }
+
+    // طلب التوكن عند أول زيارة فقط
+
+    if (!githubToken) {
+      requestToken();
+    }
+
+    // ==========================================
+    // عناصر الصفحة
+    // ==========================================
+
+    const postBtn = document.getElementById("postBtn");
+    const copyBtn = document.getElementById("copyBtn");
+    const settingsBtn = document.getElementById("settingsBtn");
+
+    const filenameInput = document.getElementById("filename");
+    const linkInput = document.getElementById("link");
+
+    const statusMsg = document.getElementById("statusMsg");
+    const resultBox = document.getElementById("resultBox");
+
+    const generatedLinkInput = document.getElementById("generatedLink");
+
+    // ==========================================
+    // تشفير وفك تشفير Base64
+    // ==========================================
+
+    function utf8ToBase64(str) {
+      return btoa(unescape(encodeURIComponent(str)));
+    }
+
+    function base64ToUtf8(str) {
+      return decodeURIComponent(escape(atob(str)));
+    }
+
+    // ==========================================
+    // رسائل الحالة
+    // ==========================================
+
+    function setStatus(text, type = "") {
+
+      statusMsg.textContent = text;
+
+      statusMsg.className = "status-msg " + type;
+
+    }
+
+    // ==========================================
+    // تغيير API TOKEN
+    // ==========================================
+
+    settingsBtn.addEventListener("click", () => {
+
+      const oldToken = githubToken;
+
+      const changed = requestToken();
+
+      if (changed) {
+
+        setStatus(
+          "تم حفظ API Token الجديد بنجاح!",
+          "success"
+        );
+
+      } else {
+
+        githubToken = oldToken;
+
+      }
+
+    });
+
+    // ==========================================
+    // نشر مود جديد
+    // ==========================================
+
+    postBtn.addEventListener("click", async () => {
+
+      const filename = filenameInput.value.trim();
+      const link = linkInput.value.trim();
+
+      if (!filename || !link) {
+
+        setStatus(
+          "يرجى ملء خانة filename و link أولاً!",
+          "error"
+        );
+
+        return;
+
+      }
+
+      if (!githubToken) {
+
+        setStatus(
+          "يرجى إدخال GitHub API Token أولاً!",
+          "error"
+        );
+
+        if (requestToken()) {
+          setStatus("تم حفظ التوكن، يمكنك النشر الآن.", "success");
+        }
+
+        return;
+
+      }
+
+      // التحقق من صحة الرابط
+
+      try {
+
+        const parsedUrl = new URL(link);
+
+        if (parsedUrl.protocol !== "https:") {
+          throw new Error();
+        }
+
+      } catch {
+
+        setStatus(
+          "يرجى إدخال رابط HTTPS صحيح!",
+          "error"
+        );
+
+        return;
+
+      }
+
+      postBtn.disabled = true;
+
+      resultBox.classList.remove("active");
+
+      setStatus("جاري الاتصال بالمستودع وجلب البيانات...");
+
+      const apiUrl =
+        `https://api.github.com/repos/${GITHUB_CONFIG.user}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.filePath}`;
+
+      try {
+
+        // 1. جلب ملف mod.json
+
+        const getResponse = await fetch(apiUrl, {
+
+          headers: {
+            "Authorization": `Bearer ${githubToken}`,
+            "Accept": "application/vnd.github+json"
+          },
+
+          cache: "no-store"
+
+        });
+
+        let modsArray = [];
+        let fileSha = null;
+
+        if (getResponse.ok) {
+
+          const fileData = await getResponse.json();
+
+          fileSha = fileData.sha;
+
+          const decodedContent = base64ToUtf8(
+            fileData.content.replace(/\n/g, "")
+          );
+
+          modsArray = JSON.parse(decodedContent);
+
+          if (!Array.isArray(modsArray)) {
+            throw new Error("محتوى mod.json ليس مصفوفة JSON صحيحة.");
+          }
+
+        } else if (getResponse.status !== 404) {
+
+          throw new Error(
+            `فشل جلب الملف (${getResponse.status})`
+          );
+
+        }
+
+        // 2. حساب ID الجديد
+
+        let nextId = 1;
+
+        if (modsArray.length > 0) {
+
+          const maxId = Math.max(
+            ...modsArray.map(
+              item => parseInt(item.id, 10) || 0
+            )
+          );
+
+          nextId = maxId + 1;
+
+        }
+
+        // 3. إنشاء المود
+
+        const newMod = {
+
+          id: String(nextId),
+          name: filename,
+          link: link
+
+        };
+
+        modsArray.push(newMod);
+
+        // 4. تحديث mod.json
+
+        setStatus("جاري نشر المود وتحديث mod.json...");
+
+        const updatedJsonString = JSON.stringify(
+          modsArray,
+          null,
+          2
+        );
+
+        const encodedContent = utf8ToBase64(
+          updatedJsonString
+        );
+
+        const putBody = {
+
+          message: `Add mod: ${filename} (ID: ${nextId})`,
+          content: encodedContent
+
+        };
+
+        if (fileSha) {
+          putBody.sha = fileSha;
+        }
+
+        const putResponse = await fetch(apiUrl, {
+
+          method: "PUT",
+
+          headers: {
+
+            "Authorization": `Bearer ${githubToken}`,
+            "Accept": "application/vnd.github+json",
+            "Content-Type": "application/json"
+
+          },
+
+          body: JSON.stringify(putBody)
+
+        });
+
+        if (!putResponse.ok) {
+
+          const errData = await putResponse.json();
+
+          throw new Error(
+            errData.message || "فشل تحديث الملف على GitHub"
+          );
+
+        }
+
+        // 5. إنشاء رابط المود
+
+        const finalUrl =
+          `${GITHUB_CONFIG.domain}/mod.html?id=${nextId}`;
+
+        generatedLinkInput.value = finalUrl;
+
+        resultBox.classList.add("active");
+
+        setStatus(
+          `تم النشر بنجاح! رقم المود: ${nextId}`,
+          "success"
+        );
+
+        // تفريغ الخانات
+
+        filenameInput.value = "";
+        linkInput.value = "";
+
+      } catch (error) {
+
+        console.error(error);
+
+        setStatus(
+          `حدث خطأ: ${error.message}`,
+          "error"
+        );
+
+      } finally {
+
+        postBtn.disabled = false;
+
+      }
+
+    });
+
+    // ==========================================
+    // نسخ الرابط
+    // ==========================================
+
+    copyBtn.addEventListener("click", async () => {
+
+      const urlToCopy = generatedLinkInput.value;
+
+      if (!urlToCopy) return;
+
+      try {
+
+        await navigator.clipboard.writeText(urlToCopy);
+
+        const originalText = copyBtn.textContent;
+
+        copyBtn.textContent = "COPIED!";
+
+        copyBtn.style.backgroundColor = "#28a745";
+
+        setTimeout(() => {
+
+          copyBtn.textContent = originalText;
+
+          copyBtn.style.backgroundColor = "#0070f3";
+
+        }, 2000);
+
+      } catch {
+
+        setStatus(
+          "تعذر النسخ، يرجى نسخ الرابط يدوياً.",
+          "error"
+        );
+
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
