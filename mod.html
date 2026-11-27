@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>تحميل المود - موقع مودات ماهر</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- ===== POPUNDER ===== -->
+  <script data-cfasync="false" src="https://accountut.com/1/f7614ac4028f927ba701ef488bc706e4"></script>
+  <!-- ===== /POPUNDER ===== -->
+
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Cairo', sans-serif;
@@ -21,7 +22,7 @@
       min-height: 100vh;
     }
 
-    /* الهيدر الجذاب */
+    /* الهيدر */
     header {
       background: linear-gradient(135deg, #0045a5 0%, #0070f3 100%);
       color: #ffffff;
@@ -58,13 +59,35 @@
       text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
 
-    /* حاوية التحميل الرئيسية */
+    /* حاوية الإعلانات */
+    .ad-banner-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 12px 15px;
+      background: #f4f6f9;
+    }
+
+    .ad-slot-banner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 50px;
+    }
+
+    .ad-slot-banner iframe {
+      display: block;
+      margin: 0 auto;
+      border: none;
+    }
+
+    /* بطاقة التحميل */
     main {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 25px 15px;
+      padding: 20px 15px 25px;
     }
 
     .download-card {
@@ -77,7 +100,6 @@
       overflow: hidden;
     }
 
-    /* شريط حالة الأمان العلوي مثل ميديا فاير */
     .status-bar {
       background-color: #eef5ff;
       color: #0056b3;
@@ -91,13 +113,12 @@
     }
 
     .card-body {
-      padding: 28px 24px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 22px;
+      gap: 20px;
     }
 
-    /* معلومات الملف */
     .file-info {
       display: flex;
       align-items: center;
@@ -123,10 +144,7 @@
       box-shadow: 0 3px 8px rgba(255, 170, 0, 0.3);
     }
 
-    .file-details {
-      overflow: hidden;
-      width: 100%;
-    }
+    .file-details { overflow: hidden; width: 100%; }
 
     .file-name {
       font-size: 1.15rem;
@@ -143,7 +161,6 @@
       margin-top: 4px;
     }
 
-    /* زر التحميل الأزرق على غرار MediaFire */
     .download-btn {
       display: flex;
       align-items: center;
@@ -161,13 +178,8 @@
       cursor: pointer;
     }
 
-    .download-btn:hover {
-      background-color: #005bb5;
-    }
-
-    .download-btn:active {
-      transform: scale(0.99);
-    }
+    .download-btn:hover { background-color: #005bb5; }
+    .download-btn:active { transform: scale(0.99); }
 
     .download-btn.disabled {
       background-color: #9aa5b1;
@@ -175,7 +187,6 @@
       pointer-events: none;
     }
 
-    /* ملاحظة سفلية */
     .note {
       text-align: center;
       font-size: 0.82rem;
@@ -208,6 +219,12 @@
     </a>
   </header>
 
+  <!-- ===== BANNER (1) - تحت الهيدر ===== -->
+  <div class="ad-banner-wrap">
+    <div class="ad-slot-banner"></div>
+  </div>
+  <!-- ===== /BANNER (1) ===== -->
+
   <!-- محتوى الصفحة -->
   <main>
     <div class="download-card">
@@ -227,6 +244,10 @@
           </div>
         </div>
 
+        <!-- ===== BANNER (2) - بين العنوان والزر ===== -->
+        <div class="ad-slot-banner"></div>
+        <!-- ===== /BANNER (2) ===== -->
+
         <a href="#" id="download-link" class="download-btn disabled">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -235,6 +256,10 @@
           </svg>
           <span>تحميل الآن (DOWNLOAD)</span>
         </a>
+
+        <!-- ===== BANNER (3) - تحت الزر ===== -->
+        <div class="ad-slot-banner"></div>
+        <!-- ===== /BANNER (3) ===== -->
 
         <div class="note">
           إذا لم يبدأ التحميل تلقائيًا، اضغط مطولاً على زر التحميل واختر "فتح في علامة تبويب جديدة".
@@ -247,16 +272,60 @@
     جميع الحقوق محفوظة &copy; موقع مودات ماهر
   </footer>
 
-  <!-- كود جلب البيانات من mod.json -->
+  <!-- ===== SOCIAL BAR ===== -->
+  <script data-cfasync="false" src="https://bellnewyork.org/14/83212e3df47acc27b5c8288d29997a5a"></script>
+  <!-- ===== /SOCIAL BAR ===== -->
+
+  <!-- كود تحميل البانرات + جلب بيانات المود -->
   <script>
+    /* ================================================
+       محمّل البانرات — يستخدم iframe معزول لكل خانة
+       لكي يعمل نفس الـ key ثلاث مرات بدون تعارض
+       ================================================ */
+    (function loadAdsterraBanners() {
+      var AD_KEY  = '2741db42dfe5a2bde10c5162ee5b7b18';
+      var AD_PATH = 'https://bellnewyork.org/22/' + AD_KEY;
+      var W = 320, H = 50;
+
+      var slots = document.querySelectorAll('.ad-slot-banner');
+      slots.forEach(function (slot) {
+        var iframe = document.createElement('iframe');
+        iframe.width  = W;
+        iframe.height = H;
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('scrolling', 'no');
+        iframe.style.display = 'block';
+        iframe.style.margin  = '0 auto';
+        iframe.style.border  = 'none';
+        slot.appendChild(iframe);
+
+        try {
+          var doc = iframe.contentWindow.document;
+          doc.open();
+          doc.write(
+            '<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{margin:0;padding:0;overflow:hidden}</style></head><body>' +
+            '<script>atOptions={"key":"' + AD_KEY + '","format":"iframe","height":' + H + ',"width":' + W + ',"params":{}};<\/script>' +
+            '<script data-cfasync="false" src="' + AD_PATH + '"><\/script>' +
+            '</body></html>'
+          );
+          doc.close();
+        } catch (e) {
+          console.error('Banner load error:', e);
+        }
+      });
+    })();
+
+    /* ================================================
+       جلب بيانات المود من mod.json
+       ================================================ */
     document.addEventListener("DOMContentLoaded", () => {
       const urlParams = new URLSearchParams(window.location.search);
       const modId = urlParams.get('id');
 
-      const nameEl = document.getElementById('mod-name');
-      const linkEl = document.getElementById('download-link');
+      const nameEl   = document.getElementById('mod-name');
+      const linkEl   = document.getElementById('download-link');
       const statusEl = document.getElementById('status-text');
-      const metaEl = document.getElementById('mod-meta');
+      const metaEl   = document.getElementById('mod-meta');
 
       if (!modId) {
         nameEl.textContent = "لم يتم تحديد رقم المود في الرابط!";
@@ -271,7 +340,6 @@
           return response.json();
         })
         .then(mods => {
-          // البحث عن المود المطابق لـ id
           const mod = mods.find(item => String(item.id) === String(modId));
 
           if (mod) {
